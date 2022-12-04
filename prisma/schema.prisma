@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model productos {
+  id             Int              @id @default(autoincrement())
+  marca          String?          @db.Char(128)
+  nombre         String           @db.Char(128)
+  costo          Decimal          @db.Decimal(9, 0)
+  stock          Decimal          @db.Decimal(3, 0)
+  created_at     DateTime         @default(dbgenerated("CURRENT_DATE")) @db.Date
+  updated_at     DateTime         @default(dbgenerated("CURRENT_DATE")) @db.Date
+  ventas_detalle ventas_detalle[]
+}
+
+model usuarios {
+  id           Int      @id @default(autoincrement())
+  email        String   @db.Char(256)
+  password     String   @db.Char(256)
+  nombre       String?  @db.Char(100)
+  direccion    String?  @db.Char(100)
+  tipo_usuario String?  @db.Char(16)
+  created_at   DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
+  updated_at   DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
+  ventas       ventas[]
+}
+
+model ventas {
+  id             Int              @id @default(autoincrement())
+  id_usuario     Int
+  estado         String           @db.Char(16)
+  created_at     DateTime         @default(dbgenerated("CURRENT_DATE")) @db.Date
+  updated_at     DateTime         @default(dbgenerated("CURRENT_DATE")) @db.Date
+  usuarios       usuarios         @relation(fields: [id_usuario], references: [id], onDelete: NoAction, map: "id_usuario_fk")
+  ventas_detalle ventas_detalle[]
+}
+
+model ventas_detalle {
+  id          Int       @id @default(autoincrement())
+  id_venta    Int
+  id_producto Int
+  cantidad    Decimal   @db.Decimal(3, 0)
+  created_at  DateTime  @default(dbgenerated("CURRENT_DATE")) @db.Date
+  updated_at  DateTime  @default(dbgenerated("CURRENT_DATE")) @db.Date
+  productos   productos @relation(fields: [id_producto], references: [id], onDelete: NoAction, map: "id_producto_fk")
+  ventas      ventas    @relation(fields: [id_venta], references: [id], onDelete: NoAction, map: "id_venta_fk")
+}
