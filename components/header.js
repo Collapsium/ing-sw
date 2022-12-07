@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
 
-function Header({ simple, hideAuth }) {
-  let title = process.env.APP_NAME;
+function Header({ simple }) {
+  const { data: session } = useSession()
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-dark bg-darkblue border-bottom">
@@ -35,34 +37,31 @@ function Header({ simple, hideAuth }) {
             </form>
           </div>
           <div className="d-flex">
-            {hideAuth ? (
-              <>
-                <Link href="/auth/login">
-                  <a className="btn btn-outline-primary d-none d-md-block">
-                    Iniciar Sesión
-                  </a>
-                </Link>
-                <Link href="/auth/sign-up">
-                  <a className="btn btn-primary d-none d-md-block ms-2">
-                    Registrarse
-                  </a>
-                </Link>
-              </>
-            ) : (
+            <>
+              <Link href="/auth/login">
+                <a className="btn btn-outline-primary d-none d-md-block">
+                  Iniciar Sesión
+                </a>
+              </Link>
+              <Link href="/auth/sign-up">
+                <a className="btn btn-primary d-none d-md-block ms-2">
+                  Registrarse
+                </a>
+              </Link>
                 <Link href="/account/profile">
                   <a className="btn btn-light border position-relative ms-3 fw-normal">
                     <FontAwesomeIcon icon={["fas", "user"]} />
                   </a>
                 </Link>
-            )}
-            <Link href="/shopping-cart">
-              <a className="btn btn-light border position-relative ms-3 fw-normal">
-                <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-auto">
-                  3
-                </span>
-              </a>
-            </Link>
+                <Link href="/shopping-cart">
+                  <a className="btn btn-light border position-relative ms-3 fw-normal">
+                    <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-auto">
+              1
+              </span>
+                  </a>
+                </Link>
+              </>
           </div>
         </div>
       </nav>
@@ -84,12 +83,7 @@ function Header({ simple, hideAuth }) {
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link href="/explore">
-                    <a className="nav-link">Todos los Productos</a>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/explore">
-                    <a className="nav-link">Accesorios</a>
+                    <a className="nav-link">Productos</a>
                   </Link>
                 </li>
               </ul>

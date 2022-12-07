@@ -13,10 +13,7 @@ function ProductDetail() {
             <nav aria-label="breadcrumb col-12">
               <ol className="breadcrumb mb-1">
                 <li className="breadcrumb-item">
-                  <a href="#">Todos los productos</a>
-                </li>
-                <li className="breadcrumb-item">
-                  <a href="#">Accesorios</a>
+                  <a href="#">Productos</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   Nombre de producto
@@ -234,13 +231,8 @@ function ProductDetail() {
               >
                 <ul className="nav nav-pills my-auto flex-nowrap">
                   <li className="nav-item">
-                    <a href="#" className="nav-link active" aria-current="true">
-                      Descripción
-                    </a>
-                  </li>
-                  <li className="nav-item">
                     <a href="#" className="nav-link">
-                      Especificaciones
+                      Detalles
                     </a>
                   </li>
                 </ul>

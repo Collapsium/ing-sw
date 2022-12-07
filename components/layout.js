@@ -2,7 +2,7 @@ import Head from "next/head";
 import Footer from "./footer";
 import Header from "./header";
 
-function Layout({ simpleHeader, hideAuth, children }) {
+function Layout({ simpleHeader, children }) {
   return (
     <>
       <Head>
@@ -13,7 +13,7 @@ function Layout({ simpleHeader, hideAuth, children }) {
         <title>Up-Grade</title>
       </Head>
       <div className="d-flex flex-column h-100">
-        <Header simple={simpleHeader} hideAuth={hideAuth} />
+        <Header simple={simpleHeader}/>
         <main className="flex-shrink-0">{children}</main>
         <Footer />
       </div>

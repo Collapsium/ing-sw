@@ -10,10 +10,7 @@ function ExploreProducts() {
             <nav aria-label="breadcrumb col-12">
               <ol className="breadcrumb mb-1">
                 <li className="breadcrumb-item">
-                  <a href="#">Todas las categorias</a>
-                </li>
-                <li className="breadcrumb-item active" aria-current="page">
-                  Accesorios
+                  <a href="#">Productos</a>
                 </li>
               </ol>
             </nav>

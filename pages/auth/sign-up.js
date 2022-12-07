@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Layout from "../../components/layout";
 
-const comunas = ["Santiago", "Cerrillos", "Lo Espejo"];
+const comunas = ["Santiago", "Cerrillos", "Lo Espejo", "Huechuraba"];
 
 const region = ["Metropolitana"];
 
