@@ -7,6 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Usuario{
+  ID_serial     Int       @id @default(autoincrement())
+  Correo        String?
+  Password      String?
+  Nombre        String?
+  Tipo_usuario  String?
+  Created_at    DateTime  @default(now()) @db.Timestamp(6)
+  Updated_at    DateTime  @default(now()) @db.Timestamp(6)
+
+}
+
 model Productos{
   id             Int              @id @default(autoincrement())
   marca          String?          @db.VarChar
@@ -15,13 +26,15 @@ model Productos{
   stock          Int?
 }
 
+model Ventas{
+  ID_Serial   Int      @id @default(autoincrement())
+  ID_usuario  Int?
+}
+
 model test{
   id    Int     @id @default(autoincrement())
   value     String
   numerito  Int
 
 }
-
-
-
 
