@@ -25,6 +25,7 @@ model Productos{
   nombre         String?          @db.VarChar
   costo          Int?
   stock          Int?
+  Imagen         String?
   Venta_detalle  Ventas_Detalle?
 }
 
