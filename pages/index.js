@@ -6,22 +6,25 @@ import React, {useEffect,useState} from 'react'
 import axios from "axios";
 
 export default function Home() {
-  const list = [1, 2, 3, 4, 5, 6, 7, 8];
-  let info = []
+  const [data, setData] = useState([]);
 
   const api = axios.create({
     baseURL: 'http://localhost:5000/api/'
   })
 
-  api.get('/products').then(res =>{
-    console.log(res.data)
-    info = res.data
+  useEffect(() => {
+    const obtenerData = async () => {
+      const result = await api.get('/products')
+      setData(result.data)
+    }
 
-    info.map(({id,numero,valor}) => {
-      console.log("id",id, "valor")
-    })
+    obtenerData()
 
-  })
+  }, []);
+
+  console.log(data)
+
+
   return (
     <div>
 
@@ -144,13 +147,14 @@ export default function Home() {
         </div>
         <h4 className="mb-3 fw-semibold">Últimos productos agregados</h4>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 mb-5">
-          {list.map((e, i) => {
-            return (
-              <div className="col" key={i}>
-                <ProductSimpleCard id={i} title={`Product ${i}`} />
+
+          {data.map((datito,i)=>{
+            return(
+              <div key={i}>
+                <ProductSimpleCard id={datito.id} title={datito.value} />
               </div>
-            );
-          })}
+              )
+          } )}
         </div>
       </div>
       {/* <div className="d-flex flex-column align-items-center bg-primary py-5">

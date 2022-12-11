@@ -4,11 +4,10 @@ import Link from "next/link";
 import axios from 'axios';
 
 
-function ProductGridCard({ id, title, off }) {
+function ProductGridCard({ price, title, off }) {
 
-
-  let price = 10000;
-  let percentOff;
+  /*
+/let percentOff;
   let offPrice = `${price}`;
 
   if (off && off > 0) {
@@ -28,6 +27,7 @@ function ProductGridCard({ id, title, off }) {
       </>
     );
   }
+  */
   return (
     <div className="card h-100 border-0 shadow-sm">
       <Link href="/product/1">
@@ -40,13 +40,13 @@ function ProductGridCard({ id, title, off }) {
               style={{ objectFit: "cover" }}
             />
           </div>
-          {percentOff}
+          {price}
         </a>
       </Link>
       <div className="card-body">
         <div className="vstack gap-2">
           <Link href="/product/1">
-            <a className="text-dark text-decoration-none">Producto</a>
+            <a className="text-dark text-decoration-none">{title}</a>
           </Link>
 
           <h6 className="fw-semibold">{offPrice}</h6>

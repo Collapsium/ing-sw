@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 
-function ProductSimpleCard({ id, title }) {
+function ProductSimpleCard(props) {
 
 
   return (
@@ -20,13 +20,13 @@ function ProductSimpleCard({ id, title }) {
       <div className="card-body">
         <Link href="/product/1">
           <a className="mb-1 text-dark text-decoration-none stretched-link">
-            productHandler
+            {props.title}
           </a>
         </Link>
 
         <ProductRating />
 
-        <h6 className="mb-0 fw-semibold mt-2">100.000</h6>
+        <h6 className="mb-0 fw-semibold mt-2">{props.price}</h6>
       </div>
     </div>
   );

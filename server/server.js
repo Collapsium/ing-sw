@@ -2,8 +2,6 @@ const express = require('express')
 const productsRoutes = require('./routes');
 const cors = require('cors')
 const app = express()
-const {PrismaClient} = require("@prisma/client");
-const prisma = new PrismaClient();
 
 //Middleware
 app.use(express.json());
