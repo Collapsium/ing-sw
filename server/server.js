@@ -1,10 +1,14 @@
 const express = require('express')
 const productsRoutes = require('./routes');
-
+const cors = require('cors')
 const app = express()
+const {PrismaClient} = require("@prisma/client");
+const prisma = new PrismaClient();
 
 //Middleware
 app.use(express.json());
+app.use(cors());
+
 
 //info que captará el front end, este es un ej de como tomamos info de la ruta api/productos
 app.get("/", (req,res) =>{

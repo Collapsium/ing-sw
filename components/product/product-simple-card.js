@@ -1,9 +1,11 @@
 import Link from "next/link";
 import ProductRating from "../product-rating";
+import axios from "axios";
 
 
 
 function ProductSimpleCard({ id, title }) {
+
 
   return (
     <div className="card h-100 border-0 shadow-sm">

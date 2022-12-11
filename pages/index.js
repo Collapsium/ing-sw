@@ -3,27 +3,26 @@ import { Carousel } from "react-responsive-carousel";
 import ProductSimpleCard from "../components/product/product-simple-card";
 
 import React, {useEffect,useState} from 'react'
-
+import axios from "axios";
 
 export default function Home() {
   const list = [1, 2, 3, 4, 5, 6, 7, 8];
+  let info = []
 
-  const [backendData, setBackendData] = useState([{}])
+  const api = axios.create({
+    baseURL: 'http://localhost:5000/api/'
+  })
 
-  useEffect(() =>{
-    fetch('http://localhost:5000/products',{
-      mode:"cors",
-    }).then(
-      response => response
-    ).then(
-      data => {
-        setBackendData(data)
-      }
-    )
-  }, [])
+  api.get('/products').then(res =>{
+    console.log(res.data)
+    info = res.data
 
+    info.map(({id,numero,valor}) => {
+      console.log("id",id, "valor")
+    })
+
+  })
   return (
-
     <div>
 
       <div className="container py-3">
