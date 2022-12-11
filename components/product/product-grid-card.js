@@ -1,9 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-import axios from 'axios';
-
-
 function ProductGridCard(props) {
 
 /*
@@ -31,18 +28,6 @@ function ProductGridCard(props) {
    */
   return (
     <div className="card h-100 border-0 shadow-sm">
-      <Link href="/product/1">
-        <a>
-          <div className="ratio ratio-1x1">
-            <img
-              className="card-img-top "
-              src="/images/moto.jpeg"
-              alt="Product image."
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-        </a>
-      </Link>
       <div className="card-body">
         <div className="vstack gap-2">
           <Link href={{
@@ -52,11 +37,19 @@ function ProductGridCard(props) {
             },
           }}as={`/product/${props.id}`}>
             <a className="mb-1 text-dark text-decoration-none stretched-link">
-              {props.title}
+              {props.nombre}
+              <div className="ratio ratio-1x1">
+                <img
+                  className="card-img-top "
+                  src={props.imagen}
+                  alt="Product image."
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
             </a>
           </Link>
 
-          <h6 className="fw-semibold">{props.price}</h6>
+          <h6 className="fw-semibold">{props.precio}</h6>
 
           <div className="hstack gap-2">
             <button className="btn btn-secondary text-primary flex-grow-1 d-md-block d-lg-none">

@@ -150,7 +150,7 @@ export default function Home() {
           {data.map((datito,i)=>{
             return(
               <div key={i}>
-                <ProductSimpleCard id={datito.id} title={datito.value} price ={datito.numerito} />
+                <ProductSimpleCard id={datito.id} nombre={datito.nombre} precio={datito.costo} imagen={datito.imagen} />
               </div>
               )
           })}

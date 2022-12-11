@@ -6,5 +6,5 @@ const router = Router()
 
 router.get('/', controller.getProducts);
 
-
+router.get("/:id",controller.getProductDetail);
 module.exports = router; //importaremos en server.js

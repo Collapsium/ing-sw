@@ -12,7 +12,8 @@ const getProducts = (req, res) => {
 }
 
 const getProductDetail = (req, res) => {
-  pool.query(queries.getProductDetail, (error, results) =>{
+  const id = parseInt(req.params.id)
+  pool.query(queries.getProductDetail, [id], (error, results) =>{
     if(error) throw error;
     res.status(200).json(results.rows) //resulto bien la query
   })
@@ -21,5 +22,6 @@ const getProductDetail = (req, res) => {
 
 module.exports = {
   getProducts,
+  getProductDetail,
 
 }

@@ -23,9 +23,6 @@ function ExploreProducts() {
     }, []);
 
 
-    console.log(data)
-
-
 
     return (
     <div className="vstack">
@@ -172,7 +169,7 @@ function ExploreProducts() {
               {data.map((datito,i)=>{
                 return(
                   <div key={i}>
-                    <ProductGridCard  id={datito.id} title={datito.value} price={datito.numerito} />
+                    <ProductGridCard  id={datito.id} nombre={datito.nombre} precio={datito.costo} imagen={datito.imagen} />
                   </div>
                 )
               })}

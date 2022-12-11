@@ -12,7 +12,7 @@ function ProductSimpleCard(props) {
       <div className="ratio ratio-1x1">
         <img
           className="card-img-top"
-          src="/images/product.jpg"
+          src={props.imagen}
           alt="Product image."
           style={{ objectFit: "cover" }}
         />
@@ -25,13 +25,13 @@ function ProductSimpleCard(props) {
         },
         }}as={`/product/${props.id}`}>
           <a className="mb-1 text-dark text-decoration-none stretched-link">
-            {props.title}
+            {props.nombre}
           </a>
         </Link>
 
         <ProductRating />
 
-        <h6 className="mb-0 fw-semibold mt-2">{props.price}</h6>
+        <h6 className="mb-0 fw-semibold mt-2">{props.precio}</h6>
       </div>
     </div>
   );
