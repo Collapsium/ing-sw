@@ -17,7 +17,7 @@ export default function Home() {
       const result = await api.get('/products')
       setData(result.data)
     }
-
+/*hfbdjhs*/
     obtenerData()
 
   }, []);
