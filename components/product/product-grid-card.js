@@ -1,7 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
+import axios from 'axios';
+
+
 function ProductGridCard({ id, title, off }) {
+
+
   let price = 10000;
   let percentOff;
   let offPrice = `${price}`;
@@ -30,7 +35,7 @@ function ProductGridCard({ id, title, off }) {
           <div className="ratio ratio-1x1">
             <img
               className="card-img-top "
-              src="/images/product.jpg"
+              src="/images/moto.jpeg"
               alt="Product image."
               style={{ objectFit: "cover" }}
             />
@@ -41,7 +46,7 @@ function ProductGridCard({ id, title, off }) {
       <div className="card-body">
         <div className="vstack gap-2">
           <Link href="/product/1">
-            <a className="text-dark text-decoration-none">Nombre producto</a>
+            <a className="text-dark text-decoration-none">Producto</a>
           </Link>
 
           <h6 className="fw-semibold">{offPrice}</h6>

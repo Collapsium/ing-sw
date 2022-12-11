@@ -2,11 +2,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "react-responsive-carousel";
 import ProductSimpleCard from "../components/product/product-simple-card";
 
+import React, {useEffect,useState} from 'react'
+
+
 export default function Home() {
   const list = [1, 2, 3, 4, 5, 6, 7, 8];
 
+  const [backendData, setBackendData] = useState([{}])
+
+  useEffect(() =>{
+    fetch('http://localhost:5000/products',{
+      mode:"cors",
+    }).then(
+      response => response
+    ).then(
+      data => {
+        setBackendData(data)
+      }
+    )
+  }, [])
+
   return (
+
     <div>
+
       <div className="container py-3">
         <div className="row mb-4">
           <div className="col-12">

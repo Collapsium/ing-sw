@@ -32,7 +32,7 @@ function ProductDetail() {
                   <div className="ratio ratio-1x1">
                     <img
                       className="rounded"
-                      src="/images/product.jpg"
+                      src="/images/moto.jpeg"
                       width={300}
                       height={300}
                       alt="Product image."
@@ -67,7 +67,7 @@ function ProductDetail() {
             <div className="col-lg-7">
               <div className="d-flex">
                 <div className="d-inline h2 mb-0 fw-semibold me-3">
-                  Nombre de producto
+                  Producto
                 </div>
                 {/*<div className="ms-auto">
                   <button
@@ -239,10 +239,7 @@ function ProductDetail() {
               </div>
               <div className="card-body">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Duis ultricies lacus sed turpis tincidunt. Urna cursus eget
-                  nunc scelerisque.
+                  Detalle de producto
                 </p>
               </div>
               <div className="card-footer py-3">
