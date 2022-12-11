@@ -18,7 +18,12 @@ function ProductSimpleCard(props) {
         />
       </div>
       <div className="card-body">
-        <Link href="/product/1">
+        <Link href={{
+          pathname: `/product/[id]`,
+          query:{
+            tittle: props.id,
+        },
+        }}as={`/product/${props.id}`}>
           <a className="mb-1 text-dark text-decoration-none stretched-link">
             {props.title}
           </a>

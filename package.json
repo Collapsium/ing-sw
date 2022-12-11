@@ -54,7 +54,9 @@
 
     "react-hot-toast": "^2.4.0",
 
-    "react-responsive-carousel": "^3.2.21"
+    "react-responsive-carousel": "^3.2.21",
+
+    "react-router-dom": "^6.4.5"
 
   },
 

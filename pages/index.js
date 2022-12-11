@@ -147,14 +147,13 @@ export default function Home() {
         </div>
         <h4 className="mb-3 fw-semibold">Últimos productos agregados</h4>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 mb-5">
-
           {data.map((datito,i)=>{
             return(
               <div key={i}>
-                <ProductSimpleCard id={datito.id} title={datito.value} />
+                <ProductSimpleCard id={datito.id} title={datito.value} price ={datito.numerito} />
               </div>
               )
-          } )}
+          })}
         </div>
       </div>
       {/* <div className="d-flex flex-column align-items-center bg-primary py-5">

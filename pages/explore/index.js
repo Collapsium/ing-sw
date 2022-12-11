@@ -1,8 +1,33 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductGridCard from "../../components/product/product-grid-card";
+import React, {useEffect,useState} from 'react'
+import axios from "axios";
+import ProductSimpleCard from "../../components/product/product-simple-card";
 
 function ExploreProducts() {
-  return (
+
+    const [data, setData] = useState([]);
+
+    const api = axios.create({
+      baseURL: 'http://localhost:5000/api/'
+    })
+
+    useEffect(() => {
+      const obtenerData = async () => {
+        const result = await api.get('/products')
+        setData(result.data)
+      }
+
+      obtenerData()
+
+    }, []);
+
+
+    console.log(data)
+
+
+
+    return (
     <div className="vstack">
       <div className="bg-secondary">
         <div className="container">
@@ -144,27 +169,14 @@ function ExploreProducts() {
               </div>
             </div>
             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-              <div className="col">
-                <ProductGridCard />
-              </div>
-              <div className="col">
-                <ProductGridCard off={10} />
-              </div>
-              <div className="col">
-                <ProductGridCard />
-              </div>
-              <div className="col">
-                <ProductGridCard />
-              </div>
-              <div className="col">
-                <ProductGridCard />
-              </div>
-              <div className="col">
-                <ProductGridCard off={25} />
-              </div>
-              <div className="col">
-                <ProductGridCard />
-              </div>
+              {data.map((datito,i)=>{
+                return(
+                  <div key={i}>
+                    <ProductGridCard  id={datito.id} title={datito.value} price={datito.numerito} />
+                  </div>
+                )
+              })}
+
             </div>
 
             <nav className="float-end mt-3">

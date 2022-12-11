@@ -1,9 +1,39 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductRating from "../../components/product-rating";
 import ProductSimpleHorizontal from "../../components/product/product-simple-horizontal";
+import axios from "axios";
+import {useEffect, useState} from "react";
 
-function ProductDetail() {
+
+function ProductDetail(props) {
+
+
   const images = [2, 4, 6, 8, 1];
+
+  const [data, setData] = useState([]);
+  const [url, setUrl] = useState("None")
+  useEffect(()=>{
+    const cu = window.location.href;
+    setUrl(cu)
+  }, [])
+  console.log(typeof(url))
+
+  const api = axios.create({
+    baseURL: 'http://localhost:5000/api/'
+  })
+
+  useEffect(() => {
+    const obtenerData = async () => {
+      const result = await api.get('/products')
+      setData(result.data)
+    }
+
+    obtenerData()
+
+  }, []);
+
+  console.log(data)
+
 
   return (
     <div className="vstack">
