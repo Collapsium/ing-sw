@@ -15,6 +15,7 @@ model Usuario{
   Tipo_usuario  String?
   Created_at    DateTime  @default(now()) @db.Timestamp(6)
   Updated_at    DateTime  @default(now()) @db.Timestamp(6)
+  Ventas        Ventas?
 
 }
 
@@ -24,11 +25,30 @@ model Productos{
   nombre         String?          @db.VarChar
   costo          Int?
   stock          Int?
+  Venta_detalle  Ventas_Detalle?
 }
 
 model Ventas{
-  ID_Serial   Int      @id @default(autoincrement())
-  ID_usuario  Int?
+  ID_Serial     Int               @id @default(autoincrement())
+  Usuario       Usuario           @relation(fields: [ID_usuario], references: [ID_serial])
+  ID_usuario    Int               @unique
+  Estado        String?
+  Created_at    DateTime          @default(now()) @db.Timestamp(6)
+  Updated_at    DateTime          @default(now()) @db.Timestamp(6)
+  Venta_detalle Ventas_Detalle?
+}
+
+model Ventas_Detalle{
+  ID_Serial     Int       @id @default(autoincrement())
+  Venta         Ventas    @relation(fields: [ID_Venta], references: [ID_Serial])
+  ID_Venta      Int       @unique
+  Producto      Productos @relation(fields: [ID_Producto], references: [id])
+  ID_Producto   Int       @unique
+  Cantidad      Int?
+  Created_at    DateTime  @default(now()) @db.Timestamp(6)
+  Updated_at    DateTime  @default(now()) @db.Timestamp(6)
+
+
 }
 
 model test{
