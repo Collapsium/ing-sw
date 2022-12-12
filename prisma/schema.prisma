@@ -16,7 +16,6 @@ model usuario{
   created_at    DateTime  @default(now()) @db.Timestamp(6)
   updated_at    DateTime  @default(now()) @db.Timestamp(6)
   ventas        ventas?
-  carrito       carrito?
 
 }
 
@@ -28,7 +27,6 @@ model productos{
   stock          Int?
   imagen         String?
   venta_detalle  ventas_detalle?
-  carrito        carrito?
 }
 
 model ventas{
@@ -53,16 +51,15 @@ model ventas_detalle{
 }
 
 model carrito{
-  usuario     usuario     @relation(fields: [id_cliente], references: [id_serial])
-  id_cliente  Int         @unique
-  producto    productos   @relation(fields: [id_producto], references: [id])
-  id_producto Int         @unique
+  
+  id_cliente  Int   @id      
+  id_producto Int?         
   cantidad    Int?
 
 }
 
 model test{
-  id    Int     @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   value     String
   numerito  Int
 
