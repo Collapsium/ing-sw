@@ -7,48 +7,57 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario{
-  ID_serial     Int       @id @default(autoincrement())
-  Correo        String?
-  Password      String?
-  Nombre        String?
-  Tipo_usuario  String?
-  Created_at    DateTime  @default(now()) @db.Timestamp(6)
-  Updated_at    DateTime  @default(now()) @db.Timestamp(6)
-  Ventas        Ventas?
+model usuario{
+  id_serial     Int       @id @default(autoincrement())
+  correo        String?
+  password      String?
+  nombre        String?
+  tipo_usuario  String?
+  created_at    DateTime  @default(now()) @db.Timestamp(6)
+  updated_at    DateTime  @default(now()) @db.Timestamp(6)
+  ventas        ventas?
+  carrito       carrito?
 
 }
 
-model Productos{
+model productos{
   id             Int              @id @default(autoincrement())
   marca          String?          @db.VarChar
   nombre         String?          @db.VarChar
   costo          Int?
   stock          Int?
-  Imagen         String?
-  Venta_detalle  Ventas_Detalle?
+  imagen         String?
+  venta_detalle  ventas_detalle?
+  carrito        carrito?
 }
 
-model Ventas{
-  ID_Serial     Int               @id @default(autoincrement())
-  Usuario       Usuario           @relation(fields: [ID_usuario], references: [ID_serial])
-  ID_usuario    Int               @unique
-  Estado        String?
-  Created_at    DateTime          @default(now()) @db.Timestamp(6)
-  Updated_at    DateTime          @default(now()) @db.Timestamp(6)
-  Venta_detalle Ventas_Detalle?
+model ventas{
+  id_serial     Int               @id @default(autoincrement())
+  Usuario       usuario           @relation(fields: [id_usuario], references: [id_serial])
+  id_usuario    Int               @unique
+  estado        String?
+  created_at    DateTime          @default(now()) @db.Timestamp(6)
+  updated_at    DateTime          @default(now()) @db.Timestamp(6)
+  venta_detalle ventas_detalle?
 }
 
-model Ventas_Detalle{
-  ID_Serial     Int       @id @default(autoincrement())
-  Venta         Ventas    @relation(fields: [ID_Venta], references: [ID_Serial])
-  ID_Venta      Int       @unique
-  Producto      Productos @relation(fields: [ID_Producto], references: [id])
-  ID_Producto   Int       @unique
-  Cantidad      Int?
-  Created_at    DateTime  @default(now()) @db.Timestamp(6)
-  Updated_at    DateTime  @default(now()) @db.Timestamp(6)
+model ventas_detalle{
+  id_serial     Int       @id @default(autoincrement())
+  venta         ventas    @relation(fields: [id_venta], references: [id_serial])
+  id_venta      Int       @unique
+  producto      productos @relation(fields: [id_producto], references: [id])
+  id_producto   Int       @unique
+  cantidad      Int?
+  created_at    DateTime  @default(now()) @db.Timestamp(6)
+  updated_at    DateTime  @default(now()) @db.Timestamp(6)
+}
 
+model carrito{
+  usuario     usuario     @relation(fields: [id_cliente], references: [id_serial])
+  id_cliente  Int         @unique
+  producto    productos   @relation(fields: [id_producto], references: [id])
+  id_producto Int         @unique
+  cantidad    Int?
 
 }
 
