@@ -1,11 +1,40 @@
 import Link from "next/link";
 import Layout from "../../components/layout";
+import {useState} from 'react';
+import axios from "axios";
 
 const comunas = ["Santiago", "Cerrillos", "Lo Espejo", "Huechuraba"];
 
 const region = ["Metropolitana"];
 
+
 function SignUp() {
+
+  const api = axios.create({
+    baseURL: 'http://localhost:5000/api/'
+  })
+
+//datos:
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const data = [name, email, password]
+  console.log(data)
+
+//cuando se aprieta en registrarse: notar como en server.js se ve la ruta y envia la respuesta
+  const handleSubmit = (event) =>{
+    console.log("ola")
+    event.preventDefault();
+      api.post('http://localhost:5000/api/user/registrer',
+        {
+          name: {name},
+          email: {email},
+          password: {password}
+        }).then(res => console.log(res)).catch(err => console.log(err))
+  }
+
+//----
+
   return (
     <div className="container py-3">
       <div className="row my-4">
@@ -13,10 +42,12 @@ function SignUp() {
           <div className="card border-0 shadow-sm">
             <div className="card-body px-4">
               <h4 className="card-title fw-bold mt-2 mb-4">Registrarse</h4>
-              <form className="row g-3">
+              <form className="row g-3" onSubmit={handleSubmit}>
                 <div className="col-md-6">
                   <label className="form-label">Nombre</label>
-                  <input type="text" className="form-control" />
+                  <input type="text"value={name}
+                         onChange={(e)=> setName(e.target.value)}
+                         className="form-control" />
                 </div>
                 <div className="col-md-6">
                   <label className="form-label">Apellido</label>
@@ -24,7 +55,10 @@ function SignUp() {
                 </div>
                 <div className="col-md-12">
                   <label className="form-label">Correo electrónico</label>
-                  <input type="email" className="form-control" />
+                  <input type="email"
+                         value={email}
+                         onChange={(e)=> setEmail(e.target.value)}
+                         className="form-control" />
                 </div>
                 {/*<div className="col-md-12">
                   <div className="form-check form-check-inline">
@@ -54,14 +88,17 @@ function SignUp() {
                 </div>
                 <div className="col-md-6">
                   <label className="form-label">Contraseña</label>
-                  <input type="password" className="form-control" />
+                  <input type="password"
+                         value={password}
+                         onChange={(e)=> setPassword(e.target.value)}
+                         className="form-control" />
                 </div>
                 <div className="col-md-6">
                   <label className="form-label">Confirmar contraseña</label>
                   <input type="password" className="form-control" />
                 </div>
                 <div className="col-md-12 mt-4">
-                  <button className="btn btn-primary w-100">Registrarse</button>
+                  <button type="submit" className="btn btn-primary w-100">Registrarse</button>
                 </div>
                 <div className="col-md-12">
                   <div className="text-muted bg-light rounded p-3 border small">

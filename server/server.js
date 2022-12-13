@@ -14,6 +14,12 @@ app.get("/", (req,res) =>{
   res.send("api result")
 })
 
+//datos enviados a esta ruta, falta el use con las funciones respectivas
+app.post('/api/user/registrer',(req,res) =>{
+  const body = req.body
+  res.send(body.password)
+})
+
 //usará esa dirección
 app.use('/api/products', productsRoutes);
 
