@@ -27,9 +27,9 @@ function SignUp() {
     event.preventDefault();
       api.post('http://localhost:5000/api/user/registrer',
         {
-          name: {name},
-          email: {email},
-          password: {password}
+          name: data[0],
+          email: data[1],
+          password: data[2]
         }).then(res => console.log(res)).catch(err => console.log(err))
   }
 
