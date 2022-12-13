@@ -30,7 +30,7 @@ model productos{
 
 model ventas{
   id_serial     Int               @id @default(autoincrement())
-  usuario       usuario           @relation(fields: [id_usuario], references: [id_serial])
+  Usuario       usuario           @relation(fields: [id_usuario], references: [id_serial])
   id_usuario    Int               @unique
   estado        String?
   created_at    DateTime          @default(now()) @db.Timestamp(6)
@@ -49,8 +49,16 @@ model ventas_detalle{
   updated_at    DateTime  @default(now()) @db.Timestamp(6)
 }
 
+model carrito{
+
+  id_cliente  Int   @id
+  id_producto Int?
+  cantidad    Int?
+  precio      Int?
+}
+
 model test{
-  id    Int     @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   value     String
   numerito  Int
 }

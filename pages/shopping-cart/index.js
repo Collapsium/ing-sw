@@ -1,8 +1,54 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CartItemRow from "../../components/shopping-cart/cart-item-row";
 import PricingCard from "../../components/shopping-cart/pricing-card";
+import {useRouter} from 'next/router'
+import axios from "axios";
+import {useEffect} from "react";
 
 function ShoppingCart() {
+/*
+  //get info de /api/carrito:id_persona
+
+  const api = axios.create({
+    baseURL: 'http://localhost:5000/api/'
+  })
+
+  useEffect(() => {
+    const id_persona = 1
+    const obtenerData = async () => {
+      const result = await api.get(`/carrito/${id_persona}`) //id persona
+      setData(result.data)
+    }
+    if(isNaN(id_persona)){
+
+    }else{
+      obtenerData()
+    }
+  },[id_persona])
+
+  console.log("data", data)
+
+  //mappear en:  cart-item-row para tener la info de cada prod de carrito
+  --div--
+  {data.map((datito,i)=>{
+                return(
+                  <div key={i}>
+                    <CartItemRow id_cliente={datito.id_cliente} id_producto={datito.id_producto} stock={1} />
+                  </div>
+                )
+              })}
+  --div--
+  const subtotal = 0
+  const total = subtotal + 3000;
+  //calcular precio total y luego enviar ese dato a  pricing-card
+  //get products
+  {data.map((datito,i)=>{
+                subtotal += datito.precio
+              })}
+  const total = subtotal + 3000;
+  Luego  <PricingCard total={total}/> y poner las props en el componente
+*/
+
   return (
     <div className="container py-4">
       <div className="row g-3">
@@ -29,8 +75,7 @@ function ShoppingCart() {
                   </thead> */}
                   <tbody>
                     <CartItemRow />
-                    <CartItemRow />
-                    <CartItemRow />
+
                   </tbody>
                 </table>
               </div>

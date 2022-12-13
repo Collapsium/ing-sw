@@ -9,6 +9,10 @@ import {useRouter} from 'next/router'
 
 
 function ProductDetail() {
+  /*LOGICA CARRITO:
+  * CADA VEZ QUE SE APRETA EL BOTON, HACE UN POST DE ESE PROD A LA BDD, NO SE AGREGA STOCK A TABLA CARRITO
+   VARIABLE ADICIONAL STOCK QUE ES IGUAL AL STOCK DE DATA, DISMINUYE EN 1, SI LLEGA A 0 SE INHABILITA EL BOTON
+  * */
 
   const [data, setData] = useState([]);
   const router = useRouter()
@@ -54,8 +58,10 @@ function ProductDetail() {
 
   const images = [2, 4, 6, 8, 1];
 
+  //const agregarAlCarrito = (id_persona, id_producto) =>{
 
-  undefined
+  //}
+
   if({id} === 'undefined' && data[indx] === ''){
     <h4>Loading..</h4>
   }else{
@@ -265,7 +271,7 @@ function ProductDetail() {
                         Comprar
                       </a>
                     </Link>
-                    <button className="btn btn-outline-primary col col-md-auto">
+                    <button onClick={()=> {agregarAlCarrito()} } className="btn btn-outline-primary col col-md-auto">
                       <FontAwesomeIcon icon={["fas", "cart-plus"]} />
                       &nbsp;Agregar al carrito
                     </button>
