@@ -26,6 +26,15 @@ app.post('/api/user/registrer',(req,res) =>{
 
 })
 
+app.post('/api/user/login',(req,res) =>{
+  const body = req.body
+  //verificar que existe cuenta
+  pool.query(queries.authLogin, [body.email, body.password], (error, results)=>{
+    if(error) throw error;
+    res.status(200).json(results.rows)
+  })
+})
+
 
 //usará esa dirección
 app.use('/api/products', productsRoutes);
