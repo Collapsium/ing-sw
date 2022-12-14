@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Layout from "../../components/layout";
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import axios from "axios";
-
+import Cookies from 'universal-cookie';
 function Login() {
 
-
+  const cookies= new Cookies();
 
   const api = axios.create({
     baseURL: 'http://localhost:5000/api/'
@@ -28,7 +28,8 @@ function Login() {
       }).then(res =>setId_serial(res.data[0]),
       console.log(id_serial['id_serial'])
     ).catch(err => console.log(err))
-  }
+    cookies.set('id', id_serial['id_serial'] ,{path: '/'})
+    }
 
   return (
     <div className="container py-3">
