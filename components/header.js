@@ -1,10 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
+import Cookies from 'universal-cookie';
 
 function Header({ simple }) {
   const { data: session } = useSession()
 
+  const handleClick = (event) =>{
+    event.preventDefault();
+    const cookies= new Cookies();
+    cookies.remove('id', {path: '/'})
+    window.location.reload(false);
+  }
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-dark bg-darkblue border-bottom">
@@ -48,6 +55,11 @@ function Header({ simple }) {
                   Registrarse
                 </a>
               </Link>
+              <button className="btn btn-primary d-none d-md-block " onClick={handleClick}>
+                <a >
+                  Cerrar Sesión
+                </a>
+              </button>
                 <Link href="/account/profile">
                   <a className="btn btn-light border position-relative ms-3 fw-normal">
                     <FontAwesomeIcon icon={["fas", "user"]} />
@@ -57,7 +69,6 @@ function Header({ simple }) {
                   <a className="btn btn-light border position-relative ms-3 fw-normal">
                     <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-auto">
-              1
               </span>
                   </a>
                 </Link>

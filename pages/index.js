@@ -28,7 +28,7 @@ export default function Home() {
   const id_usuario = cookies.get('id')
   return (
     <div>
-      <h3>id: {id_usuario}</h3>
+
         <div className="container py-3">
           <div className="row mb-4">
             <div className="col-12">

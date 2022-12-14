@@ -4,8 +4,10 @@ import ProductSimpleHorizontal from "../../components/product/product-simple-hor
 import Link from "next/link";
 import axios from "axios";
 import { useEffect, useState, useRef} from "react";
-
 import {useRouter} from 'next/router'
+const pool= require('../../server/db')
+const queries= require('../../server/queries')
+import Cookies from "universal-cookie";
 
 
 function ProductDetail() {
@@ -13,23 +15,24 @@ function ProductDetail() {
   * CADA VEZ QUE SE APRETA EL BOTON, HACE UN POST DE ESE PROD A LA BDD, NO SE AGREGA STOCK A TABLA CARRITO
    VARIABLE ADICIONAL STOCK QUE ES IGUAL AL STOCK DE DATA, DISMINUYE EN 1, SI LLEGA A 0 SE INHABILITA EL BOTON
   * */
-
+  const cookies= new Cookies();
+  const id_usuario = cookies.get('id')
   const [data, setData] = useState([]);
   const router = useRouter()
   const {id} = router.query
   const indx = Number({id}.id) - 1
   const dato = []
   console.log("id", {id}.id, "indx", indx)
-
+  //Mientras se hace el register y login
   const api = axios.create({
     baseURL: 'http://localhost:5000/api/'
   })
 
   useEffect(() => {
 
-      const obtenerData = async () => {
-        const result = await api.get(`/products/${id}`)
-        setData(result.data)
+    const obtenerData = async () => {
+      const result = await api.get(`/products/${id}`)
+      setData(result.data)
     }
     if(isNaN(indx)){
 
@@ -55,18 +58,40 @@ function ProductDetail() {
     console.log("amogus")
   }
 
-
+  let count=0
+  function addCart(){
+    const id_producto= dato[0]
+    const precio= dato[3]
+    const nombre= dato[2]
+    const marca= dato[1]
+    const imagen=dato[5]
+    api.post('http://localhost:5000/api/cart/add',{
+      id_cliente: id_usuario,
+      id_producto: id_producto,
+      cantidad: 1,
+      precio: precio,
+      nombre: nombre,
+      marca: marca,
+      imagen: imagen
+    })
+    count+=1
+    console.log("done")
+  }
   const images = [2, 4, 6, 8, 1];
 
   //const agregarAlCarrito = (id_persona, id_producto) =>{
 
   //}
 
+  const precio=dato[3]
+  const id_producto=dato[0]
   if({id} === 'undefined' && data[indx] === ''){
     <h4>Loading..</h4>
   }else{
     return (
+
       <div className="vstack">
+
         <div className="bg-secondary">
           <div className="container">
             <div className="row py-4 px-2">
@@ -111,7 +136,7 @@ function ProductDetail() {
                         >
                           <img
                             className="rounded"
-                            src="/images/product.jpg"
+                            src={dato[5]}
                             width={60}
                             height={60}
                             alt="Product image."
@@ -143,14 +168,20 @@ function ProductDetail() {
 
                 <div className="vstack">
                   <div className="d-flex mb-3 gap-2">
-                    <ProductRating />
-                    <span className="text-muted small">5 reseñas</span>
-                    <span className="text-success small">
-                    <FontAwesomeIcon icon={["fas", "check-circle"]} />
-                      &nbsp;Hay existencias
-                  </span>
+
+                    {data.map((datito,id)=>{
+                      if(datito.stock >0) return(<span className="text-success small">
+                      <FontAwesomeIcon icon={["fas", "check-circle"]} />
+                        &nbsp;Hay existencias
+                    </span>)
+                      else return(<span className="text-muted small">
+                    <FontAwesomeIcon icon={["fas", "circle-xmark"]} />
+                        &nbsp;No hay stock
+                  </span>)
+                    })}
+
                   </div>
-                  <h4 className="fw-semibold">{dato[3]}</h4>
+                  <h4 className="fw-semibold">${dato[3]}</h4>
                   <p className="fw-light">
                     Descripción del producto
                   </p>
@@ -161,126 +192,30 @@ function ProductDetail() {
                     <dd className="col-sm-9">{dato[4]}</dd>
                   </dl>
                   <hr className="text-muted" />
-                  {/*<dl className="row gy-2 mb-4">
-                  <dt className="col-12 fw-semibold">Color</dt>
-                  <dd className="col-12">
-                    <div className="hstack gap-2">
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="color1"
-                          id="c1"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c1"
-                        >
-                          Red
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="color2"
-                          id="c2"
-                          checked
-                          onChange={() => {}}
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c2"
-                        >
-                          Green
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="color3"
-                          id="c3"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c3"
-                        >
-                          Blue
-                        </label>
-                      </div>
-                    </div>
-                  </dd>
-                  <dt className="col-12 fw-semibold">Size</dt>
-                  <dd className="col-12">
-                    <div className="hstack gap-2">
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="size1"
-                          id="s1"
-                          checked
-                          onChange={() => {}}
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="s1"
-                        >
-                          Small
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="size2"
-                          id="s2"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="s2"
-                        >
-                          Medium
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="size3"
-                          id="s3"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c3"
-                        >
-                          Large
-                        </label>
-                      </div>
-                    </div>
-                  </dd>
-                </dl>*/}
+                  {data.map((datito,i)=>{
+                    if(datito.stock>0)
+                      return(<button onClick={addCart} type="button" className="btn btn-outline-primary col col-md-auto">
+                        <FontAwesomeIcon icon={["fas", "cart-plus"]} />
+                        &nbsp;Agregar al carrito
 
-                  <div className="d-flex">
-                    <Link href="/checkout/delivery-info">
-                      <a
-                        href="#"
-                        className="btn btn-primary px-md-4 col col-md-auto me-2"
-                      >
-                        Comprar
-                      </a>
-                    </Link>
-                    <button onClick={()=> {agregarAlCarrito()} } className="btn btn-outline-primary col col-md-auto">
+                      </button>)
+                    else return(<button  type="button" className="btn btn-outline-primary col col-md-auto" disabled>
                       <FontAwesomeIcon icon={["fas", "cart-plus"]} />
                       &nbsp;Agregar al carrito
-                    </button>
+
+                    </button>)
+                  })}
+
+
+                  {/*
                   </div>
+                */}
                 </div>
               </div>
             </div>
           </div>
         </div>
+
 
         <div className="container">
           <div className="row g-3">
@@ -335,6 +270,7 @@ function ProductDetail() {
         <br />
         <br />
       </div>
+
     );
   }
 }

@@ -4,6 +4,7 @@ const cors = require('cors')
 const app = express()
 const pool = require("./db");
 const queries = require("./queries");
+const routes = require('./routes');
 
 //Middleware
 app.use(express.json());
@@ -23,7 +24,6 @@ app.post('/api/user/registrer',(req,res) =>{
     if(error) throw error;
     res.status(201).send("Usuario registrado de manera existosa")
   })
-
 })
 
 app.post('/api/user/login',(req,res) =>{
@@ -37,8 +37,15 @@ app.post('/api/user/login',(req,res) =>{
 
 
 //usará esa dirección
-app.use('/api/products', productsRoutes);
+app.use('/api', routes.getProducts);
 
+app.use('/api',routes.getCart);
+
+app.use('/api',routes.putCart);
+
+app.use('api',routes.deleteItem);
+
+app.use('api',routes.getPay);
 
 
 app.listen(5000, () => {console.log("Pescando puerto 5000!!!!")})

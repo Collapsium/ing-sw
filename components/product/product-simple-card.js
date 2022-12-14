@@ -22,16 +22,16 @@ function ProductSimpleCard(props) {
           pathname: `/product/[id]`,
           query:{
             tittle: props.id,
-        },
+          },
         }}as={`/product/${props.id}`}>
           <a className="mb-1 text-dark text-decoration-none stretched-link">
             {props.nombre}
           </a>
         </Link>
 
-        <ProductRating />
 
-        <h6 className="mb-0 fw-semibold mt-2">{props.precio}</h6>
+
+        <h6 className="mb-0 fw-semibold mt-2">${props.precio}</h6>
       </div>
     </div>
   );
