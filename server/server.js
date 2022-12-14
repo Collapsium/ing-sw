@@ -21,17 +21,17 @@ app.post('/api/user/registrer',(req,res) =>{
   const body = req.body
   pool.query(queries.registrarUsuario, [ body.name, body.email, body.password], (error, results)=>{
     if(error) throw error;
-    res.status(200).send("Usuario registrado de manera existosa")
+    res.status(201).send("Usuario registrado de manera existosa")
   })
 
 })
 
 app.post('/api/user/login',(req,res) =>{
-  const{correo, password}=req.body
+  const body = req.body
   //verificar que existe cuenta
-  pool.query(queries.authLogin, [correo, password], (error, results)=>{
+  pool.query(queries.authLogin, [body.email, body.password], (error, results)=>{
     if(error) throw error;
-    res.status(200).json(results)
+    res.status(200).json(results.rows)
   })
 })
 
