@@ -4,14 +4,58 @@ import Link from "next/link";
 import Cookies from 'universal-cookie';
 
 function Header({ simple }) {
+
+  const cookies= new Cookies();
   const { data: session } = useSession()
 
   const handleClick = (event) =>{
     event.preventDefault();
-    const cookies= new Cookies();
+
     cookies.remove('id', {path: '/'})
     window.location.reload(false);
   }
+
+  function botones(props){
+    if(cookies.get('id') >0 ){
+      return(
+        <>
+          <button className="btn btn-primary d-none d-md-block " onClick={handleClick}>
+            <a >
+              Cerrar Sesión
+            </a>
+          </button>
+          <Link href="/account/profile">
+            <a className="btn btn-light border position-relative ms-3 fw-normal">
+              <FontAwesomeIcon icon={["fas", "user"]} />
+            </a>
+          </Link>
+          <Link href="/shopping-cart">
+            <a className="btn btn-light border position-relative ms-3 fw-normal">
+              <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-auto">
+              </span>
+            </a>
+          </Link>
+          </>
+
+      )
+    }else{
+      return(
+      <>
+        <Link href="/auth/login">
+          <a className="btn btn-outline-primary d-none d-md-block">
+            Iniciar Sesión
+          </a>
+        </Link>
+        <Link href="/auth/sign-up">
+          <a className="btn btn-primary d-none d-md-block ms-2">
+            Registrarse
+          </a>
+        </Link>
+      </>
+    )
+    }
+      }
   return (
     <header>
       <nav className="navbar navbar-expand-lg navbar-dark bg-darkblue border-bottom">
@@ -44,35 +88,9 @@ function Header({ simple }) {
             </form>
           </div>
           <div className="d-flex">
-            <>
-              <Link href="/auth/login">
-                <a className="btn btn-outline-primary d-none d-md-block">
-                  Iniciar Sesión
-                </a>
-              </Link>
-              <Link href="/auth/sign-up">
-                <a className="btn btn-primary d-none d-md-block ms-2">
-                  Registrarse
-                </a>
-              </Link>
-              <button className="btn btn-primary d-none d-md-block " onClick={handleClick}>
-                <a >
-                  Cerrar Sesión
-                </a>
-              </button>
-                <Link href="/account/profile">
-                  <a className="btn btn-light border position-relative ms-3 fw-normal">
-                    <FontAwesomeIcon icon={["fas", "user"]} />
-                  </a>
-                </Link>
-                <Link href="/shopping-cart">
-                  <a className="btn btn-light border position-relative ms-3 fw-normal">
-                    <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
-                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-auto">
-              </span>
-                  </a>
-                </Link>
-              </>
+
+              {botones()}
+
           </div>
         </div>
       </nav>

@@ -51,7 +51,7 @@ model ventas_detalle{
 
 model carrito{
   id Int @id @default(autoincrement())
-  id_cliente  Int?
+  id_cliente  Int
   id_producto Int?
   cantidad    Int?
   precio      Int?

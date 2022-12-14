@@ -25,10 +25,11 @@ function Login() {
       {
         email: data[0],
         password: data[1]
-      }).then(res =>setId_serial(res.data[0]),
-      console.log(id_serial['id_serial'])
+      }).then(res =>setId_serial(res.data[0])
     ).catch(err => console.log(err))
+    if(id_serial){
     cookies.set('id', id_serial['id_serial'] ,{path: '/'})
+    }
     }
 
   return (

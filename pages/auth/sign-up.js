@@ -7,7 +7,6 @@ const comunas = ["Santiago", "Cerrillos", "Lo Espejo", "Huechuraba"];
 
 const region = ["Metropolitana"];
 
-
 function SignUp() {
 
   const api = axios.create({
@@ -25,16 +24,13 @@ function SignUp() {
   const handleSubmit = (event) =>{
     console.log("ola")
     event.preventDefault();
-      api.post('http://localhost:5000/api/user/registrer',
-        {
-          name: data[0],
-          email: data[1],
-          password: data[2]
-        }).then(res => console.log(res)).catch(err => console.log(err))
+    api.post('http://localhost:5000/api/user/registrer',
+      {
+        name: data[0],
+        email: data[1],
+        password: data[2]
+      }).then(res => console.log(res)).catch(err => console.log(err))
   }
-
-//----
-
   return (
     <div className="container py-3">
       <div className="row my-4">
@@ -43,15 +39,11 @@ function SignUp() {
             <div className="card-body px-4">
               <h4 className="card-title fw-bold mt-2 mb-4">Registrarse</h4>
               <form className="row g-3" onSubmit={handleSubmit}>
-                <div className="col-md-6">
+                <div className="col-md-12">
                   <label className="form-label">Nombre</label>
                   <input type="text"value={name}
                          onChange={(e)=> setName(e.target.value)}
                          className="form-control" />
-                </div>
-                <div className="col-md-6">
-                  <label className="form-label">Apellido</label>
-                  <input type="text" className="form-control" />
                 </div>
                 <div className="col-md-12">
                   <label className="form-label">Correo electrónico</label>
@@ -70,32 +62,13 @@ function SignUp() {
                     <label className="form-check-label">Female</label>
                   </div>
                 </div>*/}
-                <div className="col-md-6">
-                  <label className="form-label">Comuna</label>
-                  <select className="form-select">
-                    {comunas.map((e, i) => {
-                      return <option key={i}>{e}</option>;
-                    })}
-                  </select>
-                </div>
-                <div className="col-md-6">
-                  <label className="form-label">Region</label>
-                  <select className="form-select">
-                    {region.map((e, i) => {
-                      return <option key={i}>{e}</option>;
-                    })}
-                  </select>
-                </div>
-                <div className="col-md-6">
+
+                <div className="col-md-12">
                   <label className="form-label">Contraseña</label>
                   <input type="password"
                          value={password}
                          onChange={(e)=> setPassword(e.target.value)}
                          className="form-control" />
-                </div>
-                <div className="col-md-6">
-                  <label className="form-label">Confirmar contraseña</label>
-                  <input type="password" className="form-control" />
                 </div>
                 <div className="col-md-12 mt-4">
                   <button type="submit" className="btn btn-primary w-100">Registrarse</button>
