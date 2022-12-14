@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "react-responsive-carousel";
 import ProductSimpleCard from "../components/product/product-simple-card";
-
+import Cookies from 'universal-cookie';
 import React, {useEffect,useState} from 'react'
 import axios from "axios";
 
@@ -17,18 +17,19 @@ export default function Home() {
       const result = await api.get('/products')
       setData(result.data)
     }
-/*hfbdjhs*/
+
     obtenerData()
 
-  }, []);
+  }, []);;
 
   console.log(data)
 
-
+  const cookies= new Cookies();
   return (
     <div>
 
       <div className="container py-3">
+        <h3>id: {cookies.get('id')}</h3>
         <div className="row mb-4">
           <div className="col-12">
             <Carousel
