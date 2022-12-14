@@ -29,6 +29,7 @@ function Login() {
     ).catch(err => console.log(err))
     if(id_serial){
     cookies.set('id', id_serial['id_serial'] ,{path: '/'})
+    window.location.reload(false);
     }
     }
 
