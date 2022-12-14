@@ -2,9 +2,10 @@ import Link from "next/link";
 import Layout from "../../components/layout";
 import {useState} from 'react';
 import axios from "axios";
+import Cookies from 'universal-cookie';
 
 function Login() {
-  
+
 
 
   const api = axios.create({
@@ -16,17 +17,22 @@ function Login() {
   const [password, setPassword] = useState("");
   const data = [email, password]
   console.log(data)
-
+  const [id_serial, setId_serial] = useState(0);
 //cuando se aprieta en registrarse: notar como en server.js se ve la ruta y envia la respuesta
   const handleSubmit = (event) =>{
     event.preventDefault();
-    
-      api.post('http://localhost:5000/api/user/login',
-        {
-          email: data[0],
-          password: data[1]
-        }).then(res => console.log(res)).catch(err => console.log(err))
-  }
+
+    api.post('http://localhost:5000/api/user/login',
+      {
+        email: data[0],
+        password: data[1]
+      }).then(res =>setId_serial(res.data[0]),
+      console.log(id_serial['id_serial'])
+    ).catch(err => console.log(err))
+
+    const cookies= new Cookies();
+    cookies.set('id', id_serial ,{path: '/'})
+    }
 
   return (
     <div className="container py-3">
@@ -51,8 +57,8 @@ function Login() {
                 <div className="col-md-12">
                   <label className="form-label">Contraseña</label>
                   <input type="password"
-                        value={password}
-                        onChange={(e)=> setPassword(e.target.value)}
+                         value={password}
+                         onChange={(e)=> setPassword(e.target.value)}
                          className="form-control"
                          required={true}
                   />
@@ -71,7 +77,7 @@ function Login() {
                   </button>
                 </div>
               </form>
-              </div>
+            </div>
           </div>
         </div>
       </div>
