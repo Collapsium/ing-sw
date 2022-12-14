@@ -1,9 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signIn, signOut, useSession } from "next-auth/client";
 import Link from "next/link";
+import Cookies from 'universal-cookie';
+import React from 'react';
 
 function Header({ simple }) {
   const { data: session } = useSession()
+
+  const handleClick = (event) =>{
+    event.preventDefault();
+    const cookies= new Cookies();
+    cookies.remove('id', {path: '/'})
+    window.location.reload(false);
+    }
+
 
   return (
     <header>
@@ -48,6 +58,11 @@ function Header({ simple }) {
                   Registrarse
                 </a>
               </Link>
+              <button onClick={handleClick}>
+                <a className="btn btn-primary d-none d-md-block ms-2">
+                  Cerrar Sesión
+                </a>
+              </button>
                 <Link href="/account/profile">
                   <a className="btn btn-light border position-relative ms-3 fw-normal">
                     <FontAwesomeIcon icon={["fas", "user"]} />
