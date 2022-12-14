@@ -47,6 +47,21 @@ CREATE TABLE "ventas_detalle" (
 );
 
 -- CreateTable
+CREATE TABLE "carrito" (
+    "id" SERIAL NOT NULL,
+    "id_cliente" INTEGER,
+    "id_producto" INTEGER,
+    "cantidad" INTEGER,
+    "precio" INTEGER,
+    "nombre" VARCHAR,
+    "marca" VARCHAR,
+    "imagen" TEXT,
+    "created_at" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "carrito_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "test" (
     "id" SERIAL NOT NULL,
     "value" TEXT NOT NULL,

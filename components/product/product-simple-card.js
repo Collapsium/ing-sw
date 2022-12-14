@@ -29,9 +29,9 @@ function ProductSimpleCard(props) {
           </a>
         </Link>
 
-        <ProductRating />
+        
 
-        <h6 className="mb-0 fw-semibold mt-2">{props.precio}</h6>
+        <h6 className="mb-0 fw-semibold mt-2">${props.precio}</h6>
       </div>
     </div>
   );

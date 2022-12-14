@@ -23,19 +23,13 @@ function ExploreProducts() {
     }, []);
 
 
-
+    let count=0;
     return (
     <div className="vstack">
       <div className="bg-secondary">
         <div className="container">
           <div className="row py-4 px-2">
-            <nav aria-label="breadcrumb col-12">
-              <ol className="breadcrumb mb-1">
-                <li className="breadcrumb-item">
-                  <a href="#">Productos</a>
-                </li>
-              </ol>
-            </nav>
+            
           </div>
         </div>
       </div>
@@ -43,33 +37,7 @@ function ExploreProducts() {
         <div className="row g-3">
           <div className="col-lg-3">
             <div className="accordion shadow-sm rounded">
-              <div className="accordion-item border-bottom">
-                <h2 className="accordion-header">
-                  <button
-                    className="accordion-button fw-bold"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne"
-                    aria-expanded="true"
-                  >
-                    Categorias
-                  </button>
-                </h2>
-                <div
-                  id="collapseOne"
-                  className="accordion-collapse collapse show"
-                >
-                  <div className="accordion-body pt-2">
-                    <div className="vstack gap-2">
-                      <a
-                        href="#"
-                        className="fw-medium link-dark text-decoration-none"
-                      >
-                        Accesorios
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
               <div className="accordion-item border-bottom">
                 <h2 className="accordion-header">
                   <button
@@ -85,15 +53,31 @@ function ExploreProducts() {
                   id="collapseTwo"
                   className="accordion-collapse collapse show"
                 >
-                  <div className="accordion-body pt-2">
+                  
+                        {data.map((datito,i)=>{
+                          count+=1
+                          return(
+                            <div key={i}>
+                          <div className="accordion-body pt-2">
                     <div className="vstack gap-2">
-                      <div className="d-flex gap-2">
-                        <input type="checkbox" className="form-check-input" />
-                        <label className="fw-medium flex-grow-1">Kawasaki</label>
-                        <span className="badge bg-default rounded-pill my-auto mb-0 text-dark">
-                          12
-                        </span>
-                      </div>
+                      
+                    <div className="d-flex gap-2">
+                          <input type="checkbox"
+                           className="form-check-input" 
+                           />
+                          <label className="fw-medium flex-grow-1"
+                          >
+                            {datito.marca}
+                            </label>
+                            </div>
+                            </div>
+                  </div>
+                        </div>)
+                        })}
+                        
+                        
+                        
+                      
                       {/*<div className="d-flex gap-2">
                         <input type="checkbox" className="form-check-input" />
                         <label className="fw-medium flex-grow-1">Samsung</label>
@@ -115,8 +99,7 @@ function ExploreProducts() {
                           60
                         </span>
                       </div>*/}
-                    </div>
-                  </div>
+                    
                 </div>
               </div>
               <div className="accordion-item">
@@ -155,7 +138,7 @@ function ExploreProducts() {
           </div>
           <div className="col-lg-9">
             <div className="hstack justify-content-between mb-3">
-              <span className="text-dark">12 productos encontrados</span>
+              <span className="text-dark">{count} Productos Encontrados</span>
               <div className="btn-group" role="group">
                 <button className="btn btn-outline-dark">
                   <FontAwesomeIcon icon={["fas", "sort-amount-up"]} />
@@ -169,7 +152,7 @@ function ExploreProducts() {
               {data.map((datito,i)=>{
                 return(
                   <div key={i}>
-                    <ProductGridCard  id={datito.id} nombre={datito.nombre} precio={datito.costo} imagen={datito.imagen} />
+                    <ProductGridCard  id={datito.id} nombre={datito.nombre} precio={datito.costo} imagen={datito.imagen} marca={datito.marca} stock={datito.stock} />
                   </div>
                 )
               })}

@@ -1,8 +1,31 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-
+import axios from "axios";
 function ProductGridCard(props) {
 
+  const api = axios.create({
+    baseURL: 'http://localhost:5000/api/'
+  })
+
+  let count=0
+  function addCart(){
+    const id_producto= props.id
+    const precio= props.precio
+    const nombre= props.nombre
+    const marca= props.marca
+    const imagen=props.imagen
+    api.post('http://localhost:5000/api/cart/add',{
+      id_cliente: 4,
+      id_producto: id_producto,
+      cantidad: 1,
+      precio: precio,
+      nombre: nombre,
+      marca: marca,
+      imagen: imagen
+    })
+    count+=1
+    console.log("done")
+  }
 /*
   let price = 10000;
   let percentOff;
@@ -30,6 +53,18 @@ function ProductGridCard(props) {
     <div className="card h-100 border-0 shadow-sm">
       <div className="card-body">
         <div className="vstack gap-2">
+        <div className="d-flex mb-3 gap-2">
+                    
+                    
+                      <span className="text-success small">
+                      <FontAwesomeIcon icon={["fas", "circle"]} />
+                        &nbsp;{props.stock} Unidades disponibles
+                    </span>
+                    
+
+                    
+                    
+                  </div>
           <Link href={{
             pathname: `/product/[id]`,
             query:{
@@ -49,24 +84,16 @@ function ProductGridCard(props) {
             </a>
           </Link>
 
-          <h6 className="fw-semibold">{props.precio}</h6>
+          <h6 className="fw-semibold">${props.precio}</h6>
 
           <div className="hstack gap-2">
-            <button className="btn btn-secondary text-primary flex-grow-1 d-md-block d-lg-none">
+            <form onSubmit={addCart}>
+            <button type="submit" className="btn btn-sm btn-secondary text-primary flex-grow-1 d-none d-lg-block">
               <FontAwesomeIcon icon={["fas", "cart-plus"]} />
-              &nbsp;Añadir al carrito
+              &nbsp;Ir al producto
             </button>
-            <button className="btn btn-outline-secondary text-primary border d-md-block d-lg-none">
-              <FontAwesomeIcon icon={["far", "heart"]} />
-            </button>
+            </form>
 
-            <button className="btn btn-sm btn-secondary text-primary flex-grow-1 d-none d-lg-block">
-              <FontAwesomeIcon icon={["fas", "cart-plus"]} />
-              &nbsp;Añadir al carrito
-            </button>
-            <button className="btn btn-sm btn-outline-secondary text-primary border d-none d-lg-block">
-              <FontAwesomeIcon icon={["far", "heart"]} />
-            </button>
           </div>
         </div>
       </div>

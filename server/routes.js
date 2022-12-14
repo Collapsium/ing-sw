@@ -4,7 +4,17 @@ const controller = require('./controller');
 const router = Router()
 
 
-router.get('/', controller.getProducts);
-router.get("/:id",controller.getProductDetail);
-//router.post('/carrito:id', controller.agregarAlCarrito);
-module.exports = router; //importaremos en server.js
+const getProducts= router.get('/products', controller.getProducts);
+const getProductsDetail= router.get("/products/:id",controller.getProductDetail);
+const getCart= router.get("/cart/:id_cliente",controller.getCart);
+const putCart= router.post('/cart/add', controller.putCart);
+const deleteItem= router.post('/cart/delete',controller.deleteItem);
+const getPay= router.post('/products/payment',controller.getPay);
+module.exports ={
+    getProducts,
+    getProductsDetail,
+    getCart,
+    putCart,
+    deleteItem,
+    getPay
+}; //importaremos en server.js
