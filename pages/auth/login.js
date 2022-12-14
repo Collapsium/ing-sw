@@ -1,60 +1,31 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import Layout from "../../components/layout";
-import { session, signIn } from "next-auth/client";
+import {useState} from 'react';
+import axios from "axios";
 
 function Login() {
+  
 
-  const [fields, setFields] = useState({ email: "", password: "" })
-  const [errors, setErrors] = useState({ email: "", password: ""})
 
-  const router = useRouter()
+  const api = axios.create({
+    baseURL: 'http://localhost:5000/api/'
+  })
 
-  const handleValidation = () => {
-    let errs = {
-      email: "",
-      password: ""
-    };
-    let formIsValid = true;
+//datos:
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const data = [email, password]
+  console.log(data)
 
-    // Email validation
-    if(!fields["email"]){
-      formIsValid = false;
-      errs["email"] = "No puede estar vacío";
-    }
-
-    if(typeof fields["email"] !== "undefined") {
-      let lastAtPos = fields["email"].lastIndexOf('@');
-      let lastDotPos = fields["email"].lastIndexOf('.');
-
-      if (!(lastAtPos < lastDotPos && lastAtPos > 0 && fields["email"].indexOf('@@') === -1 && lastDotPos > 2 && (fields["email"].length - lastDotPos) > 2)) {
-        formIsValid = false;
-        errs["email"] = "Correo inválido";
-      }
-    }
-
-    setErrors(errs)
-    return formIsValid
-  }
-
-  const handleChange = (e) => {
-    setFields({
-      ...fields,
-      [e.target.name] : e.target.value
-    })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (handleValidation()){
-      await signIn("credentials", {
-        email: fields.email,
-        password: fields.password,
-        redirect: false
-      })
-    }
+//cuando se aprieta en registrarse: notar como en server.js se ve la ruta y envia la respuesta
+  const handleSubmit = (event) =>{
+    event.preventDefault();
+    
+      api.post('http://localhost:5000/api/user/login',
+        {
+          email: data[0],
+          password: data[1]
+        }).then(res => console.log(res)).catch(err => console.log(err))
   }
 
   return (
@@ -70,18 +41,19 @@ function Login() {
                 <div className="col-md-12">
                   <label className="form-label">Correo electrónico</label>
                   <input
-                    type="email" name="email" id="email"
+                    type="email" value={email}
+                    onChange={(e)=> setEmail(e.target.value)}
                     className="form-control"
                     placeholder="mail@correo.com"
-                    onChange={handleChange}
                     required={true}
                   />
                 </div>
                 <div className="col-md-12">
                   <label className="form-label">Contraseña</label>
-                  <input type="password" name="password" id="password"
+                  <input type="password"
+                        value={password}
+                        onChange={(e)=> setPassword(e.target.value)}
                          className="form-control"
-                         onChange={handleChange}
                          required={true}
                   />
                 </div>
