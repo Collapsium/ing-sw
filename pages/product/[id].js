@@ -76,6 +76,7 @@ function ProductDetail() {
     })
     count+=1
     console.log("done")
+    window.location.reload(false);
   }
   const images = [2, 4, 6, 8, 1];
 
